@@ -1,0 +1,59 @@
+// prisma/schema.prisma
+
+model Agent {
+    id Int @id @default(autoincrement())
+
+    connectionId Int @unique
+
+    pswd String // Hashed w/ bcrypt
+
+    role Role @default(RECRUIT)
+
+    habilitation Habilitation
+
+    mission Mission[]
+}
+
+enum Role {
+    RECRUIT
+
+    AGENT
+
+    CHIEF
+}
+
+enum Habilitation {
+    CONFIDENTIAL
+
+    SECRET
+
+    ULTRA_SECRET
+}
+
+model Mission {
+    id Int @id @default(autoincrement())
+
+    title String
+
+    desc String
+
+    confidentialityLevel Int
+
+    status String
+
+    Reward String
+
+    agentId Int
+
+    agent Agent @relation(fields: [agentId], references: [id])
+}
+
+enum Status {
+    AVAILABLE
+
+    IN_PROGRESS
+
+    SUCCESS
+
+    FAILED
+}
