@@ -1,52 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
 datasource db {
-    provider = "postgresql"
+  provider = "postgresql"
 }
 
 model Agent {
-    agentId      String       @id @default(uuid())
-    firstName    String
-    lastName     String
-    connectionId Int          @unique // generated from first and last name + uuid
-    pwd          String // Hashed w/ bcrypt
-    role         Role         @default(RECRUIT)
-    habilitation Habilitation @default(IN_TRAINING)
-    mission      Mission[]
+  agentId      String       @id @default(uuid())
+  firstName    String
+  lastName     String
+  connectionId Int          @unique // generated from first and last name + uuid
+  pwd          String // Hashed w/ bcrypt
+  role         Role         @default(RECRUIT)
+  habilitation Habilitation @default(IN_TRAINING)
+  mission      Mission[]
 }
 
 enum Role {
-    RECRUIT
-    AGENT
-    CHIEF
+  RECRUIT
+  AGENT
+  CHIEF
 }
 
 enum Habilitation {
-    IN_TRAINING
-    GUNMAN
-    INFILTRATOR
-    HACKER
-    SPY
+  IN_TRAINING
+  GUNMAN
+  INFILTRATOR
+  HACKER
+  SPY
 }
 
 model Mission {
-    missionId            String               @id @default(uuid())
-    title                String
-    desc                 String?
-    confidentialityLevel ConfidentialityLevel @default(CONFIDENTIAL)
-    status               Status               @default(AVAILABLE)
-    Reward               String
-    agentId              String
-    agent                Agent                @relation(fields: [agentId], references: [agentId])
+  missionId            String               @id @default(uuid())
+  title                String
+  desc                 String?
+  confidentialityLevel ConfidentialityLevel @default(CONFIDENTIAL)
+  status               Status               @default(AVAILABLE)
+  Reward               String
+  agentId              String
+  agent                Agent                @relation(fields: [agentId], references: [agentId])
 }
 
 enum ConfidentialityLevel {
-    CONFIDENTIAL
-    SECRET
-    ULTRA_SECRET
+  CONFIDENTIAL
+  SECRET
+  ULTRA_SECRET
 }
 
 enum Status {
-    AVAILABLE
-    IN_PROGRESS
-    SUCCESS
-    FAILED
+  AVAILABLE
+  IN_PROGRESS
+  SUCCESS
+  FAILED
 }

@@ -1,5 +1,5 @@
 import { PrismaNeon } from "@prisma/adapter-neon";
-import { PrismaClient } from "../generated/prisma/schema.prisma";
+import { PrismaClient } from "../generated/prisma/client";
 import dotenv from "dotenv";
 import { log } from "node:console";
 
