@@ -1,9 +1,11 @@
 model Agent {
-    agentId      Int          @id @default(autoincrement())
-    connectionId Int          @unique
+    agentId      String       @id @default(uuid())
+    firstName    String
+    lastName     String
+    connectionId Int          @unique // generated from first and last name + uuid
     pwd          String // Hashed w/ bcrypt
     role         Role         @default(RECRUIT)
-    habilitation Habilitation
+    habilitation Habilitation @default(IN_TRAINING)
     mission      Mission[]
 }
 
@@ -14,20 +16,28 @@ enum Role {
 }
 
 enum Habilitation {
-    CONFIDENTIAL
-    SECRET
-    ULTRA_SECRET
+    IN_TRAINING
+    GUNMAN
+    INFILTRATOR
+    HACKER
+    SPY
 }
 
 model Mission {
-    missionId            Int    @id @default(autoincrement())
+    missionId            String               @id @default(uuid())
     title                String
-    desc                 String
-    confidentialityLevel Int
-    status               Status @default(AVAILABLE)
+    desc                 String?
+    confidentialityLevel ConfidentialityLevel @default(CONFIDENTIAL)
+    status               Status               @default(AVAILABLE)
     Reward               String
-    agentId              Int
-    agent                Agent  @relation(fields: [agentId], references: [agentId])
+    agentId              String
+    agent                Agent                @relation(fields: [agentId], references: [agentId])
+}
+
+enum ConfidentialityLevel {
+    CONFIDENTIAL
+    SECRET
+    ULTRA_SECRET
 }
 
 enum Status {
