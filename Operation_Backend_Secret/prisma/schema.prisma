@@ -16,6 +16,8 @@ model Agent {
   role         Role         @default(RECRUIT)
   habilitation Habilitation @default(IN_TRAINING)
   mission      Mission[]
+
+  createdAt DateTime @default(now())
 }
 
 enum Role {
@@ -41,6 +43,8 @@ model Mission {
   Reward               String
   agentId              String
   agent                Agent                @relation(fields: [agentId], references: [agentId])
+
+  createdAt DateTime @default(now())
 }
 
 enum ConfidentialityLevel {
