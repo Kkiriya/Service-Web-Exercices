@@ -20,8 +20,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "tsx src/index.ts",
-    "dev": "tsx --watch src/index.ts",
+    "start": "tsx src/serveur.ts",
+    "dev": "tsx --watch src/serveur.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
