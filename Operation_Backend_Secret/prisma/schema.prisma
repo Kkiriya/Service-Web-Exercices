@@ -1,38 +1,57 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
 model Agent {
-    agentId      Int          @id @default(autoincrement())
-    connectionId Int          @unique
-    pwd          String // Hashed w/ bcrypt
-    role         Role         @default(RECRUIT)
-    habilitation Habilitation
-    mission      Mission[]
+  agentId      String       @id @default(uuid())
+  firstName    String
+  lastName     String
+  connectionId Int          @unique // generated from first and last name + uuid
+  pwd          String // Hashed w/ bcrypt
+  role         Role         @default(RECRUIT)
+  habilitation Habilitation @default(IN_TRAINING)
+  mission      Mission[]
 }
 
 enum Role {
-    RECRUIT
-    AGENT
-    CHIEF
+  RECRUIT
+  AGENT
+  CHIEF
 }
 
 enum Habilitation {
-    CONFIDENTIAL
-    SECRET
-    ULTRA_SECRET
+  IN_TRAINING
+  GUNMAN
+  INFILTRATOR
+  HACKER
+  SPY
 }
 
 model Mission {
-    missionId            Int    @id @default(autoincrement())
-    title                String
-    desc                 String
-    confidentialityLevel Int
-    status               Status @default(AVAILABLE)
-    Reward               String
-    agentId              Int
-    agent                Agent  @relation(fields: [agentId], references: [agentId])
+  missionId            String               @id @default(uuid())
+  title                String
+  desc                 String?
+  confidentialityLevel ConfidentialityLevel @default(CONFIDENTIAL)
+  status               Status               @default(AVAILABLE)
+  Reward               String
+  agentId              String
+  agent                Agent                @relation(fields: [agentId], references: [agentId])
+}
+
+enum ConfidentialityLevel {
+  CONFIDENTIAL
+  SECRET
+  ULTRA_SECRET
 }
 
 enum Status {
-    AVAILABLE
-    IN_PROGRESS
-    SUCCESS
-    FAILED
+  AVAILABLE
+  IN_PROGRESS
+  SUCCESS
+  FAILED
 }
