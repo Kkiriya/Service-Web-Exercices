@@ -3,7 +3,6 @@
     "@prisma/adapter-neon": "^7.8.0",
     "@prisma/client": "^7.8.0",
     "@types/bcryptjs": "^2.4.6",
-    "@types/express": "^5.0.6",
     "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^26.0.1",
     "axios": "^1.18.1",
@@ -27,5 +26,8 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "devDependencies": {
+    "@types/express": "^5.0.6"
+  }
 }
