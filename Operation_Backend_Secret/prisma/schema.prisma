@@ -1,3 +1,7 @@
+datasource db {
+    provider = "postgresql"
+}
+
 model Agent {
     agentId      String       @id @default(uuid())
     firstName    String
